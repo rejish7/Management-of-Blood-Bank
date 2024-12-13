@@ -55,7 +55,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/blood bank/config/config.php');?>
     }
     #content {
       width: calc(100% - 250px);
-      padding: 40px;
+      padding: 80px;
       min-height: 100vh;
       transition: all 0.3s;
       position: absolute;

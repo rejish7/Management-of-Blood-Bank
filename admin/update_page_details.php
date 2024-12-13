@@ -12,40 +12,6 @@ include($_SERVER['DOCUMENT_ROOT'] . '/blood bank/config/config.php');
   <link rel="stylesheet" href="../public/css/bootstrap.min.css">
   <link rel="stylesheet" href="../public/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <style>
-    body {
-      background-color: #f8f9fa;
-      color: #333;
-    }
-
-    .page-title {
-      color: #007bff;
-      font-weight: bold;
-      margin-bottom: 30px;
-    }
-
-    #sidebar {
-      width: 250px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      z-index: 999;
-      background: #7386D5;
-      color: #fff;
-      transition: all 0.3s;
-    }
-
-    #content {
-      width: calc(100% - 250px);
-      padding: 40px;
-      min-height: 100vh;
-      transition: all 0.3s;
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-  </style>
 </head>
 
 <body style="color:black">
