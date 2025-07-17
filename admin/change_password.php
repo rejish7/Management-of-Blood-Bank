@@ -1,4 +1,11 @@
-<?php include 'session.php'; ?>
+<?php 
+// Start session if not already started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+// Include database configuration
+include($_SERVER['DOCUMENT_ROOT'] . '/blood bank/config/config.php');
+?>
 
 <html>
 
@@ -23,7 +30,6 @@
 </style>
 </head>
 <?php
-include 'conn.php';
   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
   ?>
 <body style="color:black">
@@ -33,7 +39,7 @@ include 'conn.php';
 </div>
 <div id="sidebar">
 <?php 
-$active="";
+$active="password";
 include 'sidebar.php'; ?>
 
 </div>

@@ -1,5 +1,13 @@
-<?php
-include($_SERVER['DOCUMENT_ROOT'] . '/blood bank/config/config.php');?>
+<?php 
+// Start session if not already started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+// Include database configuration
+include($_SERVER['DOCUMENT_ROOT'] . '/blood bank/config/config.php');
+?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,12 +75,12 @@ include($_SERVER['DOCUMENT_ROOT'] . '/blood bank/config/config.php');?>
 
 <body>
   <?php
-  include 'session.php';
   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
   ?>
     <div id="header">
-      <?php include 'header.php'; ?>
-    </div>
+<?php include 'header.php';
+?>
+</div>
     <div class="wrapper">
       <nav id="sidebar">
         <?php
@@ -152,7 +160,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/blood bank/config/config.php');?>
   } else {
     echo '<div class="alert alert-danger"><b>Please Login First To Access Admin Portal.</b></div>';
   ?>
-    <form method="post" name="" action="login.php" class="form-horizontal">
+    <form method="post" name="" action="index.php" class="form-horizontal">
       <div class="form-group">
         <div class="col-sm-8 col-sm-offset-4" style="float:left">
           <button class="btn btn-primary" name="submit" type="submit">Go to Login Page</button>

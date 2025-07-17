@@ -6,80 +6,280 @@
   <title>Admin Sidebar</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <style>
-      body {
-          margin: 0;
-          font-family: 'Poppins', sans-serif;
-          background-color: #f4f4f4;
-      }
+<style>
+    :root {
+      --primary-color: #e74c3c;
+      --primary-dark: #c0392b;
+      --secondary-color: #34495e;
+      --success-color: #27ae60;
+      --warning-color: #f39c12;
+      --info-color: #3498db;
+      --light-bg: #f8f9fa;
+      --white: #ffffff;
+      --text-dark: #2c3e50;
+      --text-muted: #6c757d;
+      --shadow: 0 4px 20px rgba(0,0,0,0.1);
+      --border-radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
+    .sidebar {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 280px;
+      height: calc(100vh - 70px);
+      background: linear-gradient(180deg, var(--white) 0%, #f8f9fa 100%);
+      overflow-y: auto;
+      z-index: 999;
+    }
+
+    .sidebar-nav {
+      padding: 0 15px;
+    }
+
+    .nav-section {
+      margin-bottom: 30px;
+    }
+
+    .nav-section-title {
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .nav-item {
+      margin-bottom: 5px;
+    }
+
+    .nav-link {
+    display: flex
+;
+    /* align-items: center; */
+    gap: 12px;
+    padding: 15px 20px;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 500;
+    /* font-size: 0.95rem; */
+    /* position: relative; */
+    overflow: hidden;
+}
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      transition: var(--transition);
+      border-radius: var(--border-radius);
+    }
+
+    .nav-link.active {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: var(--white);
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+      transform: translateX(5px);
+    }
+
+    .nav-link.active::before {
+      width: 4px;
+      background: var(--white);
+    }
+
+    .nav-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .nav-text {
+      flex: 1;
+    }
+
+    .nav-badge {
+      background: var(--warning-color);
+      color: var(--white);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .sidebar-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 25px;
+      border-top: 1px solid #e9ecef;
+      background: var(--white);
+    }
+
+    .footer-text {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-align: center;
+      margin: 0;
+    }
+
+    /* Custom scrollbar */
+    .sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 3px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
       .sidebar {
-          margin: 0;
-          padding: 20px 0;
-          width: 250px;
-          background-color: #2c3e50;
-          position: fixed;
-          height: 100%;
-          overflow: auto;
-          box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
       }
 
-      .sidebar a {
-          display: block;
-          color: #ecf0f1;
-          padding: 16px 20px;
-          text-decoration: none;
-          transition: all 0.3s ease;
-          border-left: 4px solid transparent;
+      .sidebar.show {
+        transform: translateX(0);
       }
+    }
 
-      .sidebar a:hover:not(.active) {
-          background-color: #34495e;
-          border-left: 4px solid #3498db;
+    /* Loading animation */
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
       }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
 
-      .sidebar a i {
-          margin-right: 10px;
-      }
+    .nav-item {
+      animation: slideInLeft 0.3s ease forwards;
+    }
 
-      div.content {
-          margin-left: 250px;
-          padding: 20px;
-          height: 1000px;
-      }
-
-      a.act {
-          background: linear-gradient(135deg, #3498db, #2ecc71);
-          color: white;
-          border-left: 4px solid #e74c3c;
-      }
-
-      @media screen and (max-width: 700px) {
-          .sidebar {
-              width: 100%;
-              height: auto;
-              position: relative;
-          }
-          .sidebar a {float: left;}
-          div.content {margin-left: 0;}
-      }
-
-      @media screen and (max-width: 400px) {
-          .sidebar a {
-              text-align: center;
-              float: none;
-          }
-      }
-  </style>
+</style>
 </head>
 <body>
 
 <div class="sidebar">
-  <a href="dashboard.php" <?php if($active=='dashboard') echo "class='act'"; ?>><i class="fas fa-tachometer-alt"></i>Dashboard</a>
-  <a href="add_donor.php" <?php if($active=='add') echo "class='act'"; ?>><i class="fas fa-user-plus"></i>Add Donor</a>
-  <a href="donor_list.php" <?php if($active=='list') echo "class='act'"; ?>><i class="fas fa-list-alt"></i>Donor List</a>
-  <a href="query.php" <?php if($active=='query') echo "class='act'"; ?>><i class="fas fa-question-circle"></i>Check Queries</a>
-  <a href="pages.php" <?php if($active=='pages') echo "class='act'"; ?>><i class="fas fa-file-alt"></i>Manage Pages</a>
-  <a href="update_contact.php" <?php if($active=='contact') echo "class='act'"; ?>><i class="fas fa-address-book"></i>Update Contact</a>
-  <a href="logout.php" <?php if($active=='logout') echo "class='act'"; ?>><i class="fas fa-sign-out-alt"></i>Logout</a>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section">
+      
+      <div class="nav-item">
+        <a href="dashboard.php" class="nav-link <?php echo ($active == 'dashboard') ? 'active' : ''; ?>">
+          <div class="nav-icon">
+            <i class="fas fa-tachometer-alt"></i>
+          </div>
+          <span class="nav-text">Dashboard</span>
+        </a>
+      </div>
+
+      <div class="nav-item">
+        <a href="add_donor.php" class="nav-link <?php echo ($active == 'add') ? 'active' : ''; ?>">
+          <div class="nav-icon">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <span class="nav-text">Add Donor</span>
+        </a>
+      </div>
+
+      <div class="nav-item">
+        <a href="donor_list.php" class="nav-link <?php echo ($active == 'list') ? 'active' : ''; ?>">
+          <div class="nav-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <span class="nav-text">Donor List</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">Queries & Support</div>
+      
+      <div class="nav-item">
+        <a href="query.php" class="nav-link <?php echo ($active == 'query') ? 'active' : ''; ?>">
+          <div class="nav-icon">
+            <i class="fas fa-question-circle"></i>
+          </div>
+          <span class="nav-text">All Queries</span>
+        </a>
+      </div>
+
+      <div class="nav-item">
+        <a href="pending_query.php" class="nav-link <?php echo ($active == 'pending') ? 'active' : ''; ?>">
+          <div class="nav-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <span class="nav-text">Pending Queries</span>
+          <span class="nav-badge">New</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">Settings</div>
+      
+      <div class="nav-item">
+        <a href="pages.php" class="nav-link <?php echo ($active == 'pages') ? 'active' : ''; ?>">
+          <div class="nav-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <span class="nav-text">Manage Pages</span>
+        </a>
+      </div>
+
+      <div class="nav-item">
+        <a href="update_contact.php" class="nav-link <?php echo ($active == 'contact') ? 'active' : ''; ?>">
+          <div class="nav-icon">
+            <i class="fas fa-address-book"></i>
+          </div>
+          <span class="nav-text">Update Contact</span>
+        </a>
+      </div>
+
+      <div class="nav-item">
+        <a href="change_password.php" class="nav-link <?php echo ($active == 'password') ? 'active' : ''; ?>">
+          <div class="nav-icon">
+            <i class="fas fa-key"></i>
+          </div>
+          <span class="nav-text">Change Password</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">Account</div>
+      
+      <div class="nav-item">
+        <a href="logout.php" class="nav-link <?php echo ($active == 'logout') ? 'active' : ''; ?>">
+          <div class="nav-icon">
+            <i class="fas fa-sign-out-alt"></i>
+          </div>
+          <span class="nav-text">Logout</span>
+        </a>
+      </div>
+    </div>
+  </nav>
 </div>
